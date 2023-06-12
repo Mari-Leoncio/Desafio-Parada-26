@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    form {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    input[type="text"],
+    select {
+      width: 100%;
+      padding: 5px;
+      border-radius: 4px;
+      border: 1px solid hsla(47, 85%, 50%, 0.896);
+    }
+
+    input[type="radio"],
+    input[type="checkbox"] {
+      margin-right: 5px;
+    }
+
+    button {
+    background-color: #F08080;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: auto;
+}
+
+
+   button:hover {
+   background-color: #dc143c;
+   border: 2px solid #F08080;
+   color: white;
+   transition: all 0.5s ease-in;
+   transition-delay: 0.05s;
+  } 
+    
+    .error {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+
+  }
+  </style>
+</head>
+<body>
+  <form id="myForm">
+    <label for="name">Nome:</label>
+    <input type="text" id="name" name="name">
+
+    <label for="email">E-mail:</label>
+    <input type="text" id="email" name="email">
+
+    <label for="age">Idade:</label>
+    <input type="text" id="age" name="age">
+
+    <label for="gender">Gênero:</label>
+    <input type="radio" id="male" name="gender" value="male">
+    <label for="male">Masculino</label>
+    <input type="radio" id="female" name="gender" value="female">
+    <label for="female">Feminino</label>
+    <input type="radio" id="prefer-not-to-say" name="gender" value="prefer-not-to-say">
+    <label for="prefer-not-to-say">Prefiro não responder</label>
+
+    <label for="country-origin">País de Origem:</label>
+    <select id="country-origin" name="country-origin">
+      <option value="">Selecione o país que você mora atualmente</option>
+      <option value="br">Brasil</option>
+      <option value="us">Estados Unidos</option>
+      <option value="ca">Canadá</option>
+      <option value="nl">Holanda</option>
+    </select>
+
+    <label for="country-destination">País de Destino:</label>
+    <select id="country-destination" name="country-destination">
+      <option value="">Selecione o país que você vai viajar</option>
+      <option value="mt">Malta</option>
+      <option value="eg">Egito</option>
+      <option value="mv">Maldivas</option>
+      <option value="nz">Nova Zelândia</option>
+    </select>
+
+
+
+    <button type="submit">Enviar</button>
+  </form>
+
+  <script>
+    document.getElementById("myForm").addEventListener("submit", function(event) {
+      var name = document.getElementById("name").value;
+      var email = document.getElementById("email").value;
+      var age = document.getElementById("age").value;
+      var gender = document.querySelector('input[name="gender"]:checked');
+      var countryOrigin = document.getElementById("country-origin").value;
+      var countryDestination = document.getElementById("country-destination").value;
+
+      var errorMessages = [];
+
+      if (name === "") {
+        errorMessages.push("O campo Nome é obrigatório.");
+      }
+
+      if (email === "") {
+        errorMessages.push("O campo E-mail é obrigatório.");
+      }
+
+      if (age === "") {
+        errorMessages.push("O campo Idade é obrigatório.");
+      }
+
+      if (!gender) {
+        errorMessages.push("Selecione o campo Gênero.");
+      }
+
+      if (countryOrigin === "") {
+        errorMessages.push("Selecione o país de origem.");
+      }
+
+      if (countryDestination === "") {
+        errorMessages.push("Selecione o país de destino.");
+      }
+
+      if (errorMessages.length > 0) {
+        event.preventDefault();
+        var errorContainer = document.createElement("div");
+        errorContainer.className = "error";
+        errorContainer.innerHTML = errorMessages.join("<br>");
+        document.getElementById("myForm").appendChild(errorContainer);
+      }
+    });
+  </script>
+</body>
+</html>
